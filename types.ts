@@ -13,6 +13,7 @@ export type TweetType = {
   image?: string;
   numberOfComments?: number;
   numberOfRetweets?: number;
+  numberOfQuotes?: number;
   numberOfLikes?: number;
   impressions?: number;
 };
