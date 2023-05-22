@@ -15,7 +15,7 @@ const Tweet = ({ tweet }: TweetProps) => {
   return (
     <Link href={`/tweet/${tweet.id}`} asChild>
       <Pressable style={styles.container}>
-        <Image src={tweet.user.image} style={styles.userImage} />
+        <Image src={tweet.user.image} style={styles.userImage}/>
 
         <View style={styles.mainContainer}>
           <View style={styles.headContainer}>
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     aspectRatio: 16 / 9,
-    marginVertical: 10,
+    marginVertical: 5,
     borderRadius: 15,
   },
 

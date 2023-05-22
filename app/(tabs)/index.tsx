@@ -1,6 +1,7 @@
 import { Animated, FlatList, Pressable, StyleSheet } from "react-native";
 import { View } from "../../components/Themed";
 import { useEffect, useRef, useState } from "react";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
 import Tweet from "../../components/Tweet/Tweet";
 import tweets from "../../assets/data/tweets";
@@ -16,6 +17,8 @@ const { CONTAINER_HEIGHT } = Constants;
 
 export default function TabOneScreen() {
   const [loading, setLoading] = useState(true);
+
+  const tabBarHeight = useBottomTabBarHeight();
 
   const scrollY = useRef(new Animated.Value(0)).current;
   const offsetAnim = useRef(new Animated.Value(0)).current;
@@ -47,6 +50,12 @@ export default function TabOneScreen() {
     offsetAnim.addListener(({ value }) => {
       _offsetValue = value;
     });
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 700);
   }, []);
 
   var scrollEndTimer: any = null;
@@ -93,7 +102,10 @@ export default function TabOneScreen() {
         scrollEnabled={!loading}
         scrollEventThrottle={1}
         keyExtractor={(item, index) => (!loading ? item.id : index)}
-        contentContainerStyle={styles.contentContainerStyle}
+        contentContainerStyle={[
+          styles.contentContainerStyle,
+          { paddingBottom: tabBarHeight },
+        ]}
         data={!loading ? tweets : Array(5)}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) =>
@@ -105,8 +117,12 @@ export default function TabOneScreen() {
       />
       <DinamicHeader headerTranslate={headerTranslate} opacity={opacity} />
 
-      <Link href="/new-tweet" asChild>
-        <Pressable style={styles.floatingButton}>
+      <Link
+        href="/new-tweet"
+        asChild
+        style={[styles.floatingButton, { bottom: tabBarHeight + 10 }]}
+      >
+        <Pressable>
           <Entypo name="plus" size={22} color="white" />
         </Pressable>
       </Link>
@@ -129,7 +145,7 @@ const styles = StyleSheet.create({
 
     position: "absolute",
     right: 15,
-    bottom: 15,
+    // bottom: 15,
 
     shadowColor: "#000",
     shadowOffset: {

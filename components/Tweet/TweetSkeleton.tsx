@@ -3,13 +3,13 @@ import { Animated, Easing, StyleSheet } from "react-native";
 import { Text, View } from "../Themed";
 
 const TweetSkeleton = () => {
-  const opacity = new Animated.Value(0.5);
+  const opacity = new Animated.Value(0.6);
 
   useEffect(() => {
     Animated.loop(
       Animated.timing(opacity, {
         toValue: 1,
-        duration: 2000,
+        duration: 1200,
         easing: Easing.bounce,
         useNativeDriver: true,
       })
@@ -91,8 +91,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   image: {
-    height: 150,
-    width: "100%",
+    aspectRatio: 16 / 9,
     backgroundColor: "#484848",
     borderRadius: 5,
   },
